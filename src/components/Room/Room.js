@@ -19,6 +19,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 const useStyles = styled({
   root: {
     maxWidth: 345,
+    background: 'black'
   },
   media: {
     height: 0,

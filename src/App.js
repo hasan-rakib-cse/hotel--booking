@@ -17,17 +17,14 @@ function App() {
   return (
     <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
       <p>Name: {loggedInUser.name}</p>
+
       <BrowserRouter>
         <Header/>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
-
-          {/* <PrivateRoute path="/book/:bedType"><Book /></PrivateRoute> */}
           <Route path='/book/:bedType' element={<PrivateRoute> <Book /> </PrivateRoute>} />
-
           <Route path='*' element={<Error />} />
-
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>
