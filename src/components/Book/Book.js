@@ -15,6 +15,7 @@ import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import Alert from '@mui/material/Alert';
+import Bookings from '../Bookings/Bookings';
 
 const Book = () => {
     const { bedType } = useParams();
@@ -40,6 +41,16 @@ const Book = () => {
 
     // for passing data to backend
     const handleBooking = () => {
+        const newBooking = {...loggedInUser, ...selectedDate};
+        fetch('http://localhost:4000/addBooking', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(newBooking)
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+        })
 
     }
 
@@ -74,49 +85,54 @@ const Book = () => {
             <h1>Hello, <span style={{ color: 'green' }}>{loggedInUser.name}</span>! Let's book a {bedType} Room.</h1>
             <p>Want a <Link to={'/'}>different room?</Link> </p>
 
-            <Stack direction="row" spacing={2} sx={{ display: 'inline-flex' }}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DemoContainer components={['DatePicker', 'DatePicker']}>
+            <div>
+                <Stack direction="row" spacing={2} sx={{ display: 'inline-flex' }}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DemoContainer components={['DatePicker', 'DatePicker']}>
 
-                        <DatePicker label="Check In" value={selectedDate.checkIn} onChange={handleCheckInDate} />
-                        <DatePicker
-                            label="Check Out"
-                            value={selectedDate.checkOut}
-                            format="DD/MM/YYYY" // 13-09-2022
-                            onChange={handleCheckOutDate}
-                            slots={{
-                                openPickerIcon: EditCalendarRoundedIcon,
-                                openPickerButton: StyledButton,
-                                day: StyledDay,
-                            }}
-                            slotProps={{
-                                // openPickerIcon: { fontSize: 'large' },
-                                openPickerButton: { color: 'secondary' },
-                                textField: {
-                                    // variant: 'filled',
-                                    focused: true,
-                                    color: 'secondary',
-                                    helperText: 'DD/MM/YYYY'
-                                },
-                                field: { clearable: true, onClear: () => setCleared(true) },
-                            }}
-                        />
+                            <DatePicker label="Check In" value={selectedDate.checkIn} onChange={handleCheckInDate} />
+                            <DatePicker
+                                label="Check Out"
+                                value={selectedDate.checkOut}
+                                format="DD/MM/YYYY" // 13-09-2022
+                                onChange={handleCheckOutDate}
+                                slots={{
+                                    openPickerIcon: EditCalendarRoundedIcon,
+                                    openPickerButton: StyledButton,
+                                    day: StyledDay,
+                                }}
+                                slotProps={{
+                                    // openPickerIcon: { fontSize: 'large' },
+                                    openPickerButton: { color: 'secondary' },
+                                    textField: {
+                                        // variant: 'filled',
+                                        focused: true,
+                                        color: 'secondary',
+                                        helperText: 'DD/MM/YYYY'
+                                    },
+                                    field: { clearable: true, onClear: () => setCleared(true) },
+                                }}
+                            />
 
-                        {/* For clear date field */}
-                        {cleared && (
-                            <Alert
-                                sx={{ position: 'absolute', bottom: 0, right: 0 }}
-                                severity="success"
-                            >
-                                Field cleared!
-                            </Alert>
-                        )}
+                            {/* For clear date field */}
+                            {cleared && (
+                                <Alert
+                                    sx={{ position: 'absolute', bottom: 0, right: 0 }}
+                                    severity="success"
+                                >
+                                    Field cleared!
+                                </Alert>
+                            )}
 
-                    </DemoContainer>
-                </LocalizationProvider>
-            </Stack>
+                        </DemoContainer>
+                    </LocalizationProvider>
+                </Stack>
 
-            <Button onClick={handleBooking} variant="contained" sx={{ display: 'block', margin: '20px auto' }}>BOOK NOW</Button>
+                <Button onClick={handleBooking} variant="contained" sx={{ display: 'block', margin: '20px auto' }}>BOOK NOW</Button>
+            </div>
+
+            <Bookings />
+                            
         </div>
     );
 };
