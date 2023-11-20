@@ -1,26 +1,35 @@
+# Client Side
+
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
-/.pnp
-.pnp.js
+/hotel--booking--client/node_modules
+/hotel--booking--client/.pnp
+/hotel--booking--client/.pnp.js
 
 # testing
-/coverage
+/hotel--booking--client/coverage
 
 # production
-/build
+/hotel--booking--client/build
 
 # misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+/hotel--booking--client/.DS_Store
+/hotel--booking--client/.env.local
+/hotel--booking--client/.env.development.local
+/hotel--booking--client/.env.test.local
+/hotel--booking--client/.env.production.local
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
 # firebase confige
-/src/components/Login/firebase.config.js
+/hotel--booking--client/src/components/Login/firebase.config.js
+
+
+# Server Side
+
+hotel--booking--server/node_modules
+/hotel--booking--server/.env
+/hotel--booking--server/configs

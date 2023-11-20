@@ -33,9 +33,11 @@ function Login() {
             const {displayName, email} = result.user;
             const signInUser = {name: displayName, email: email};
             setLoggedInUser(signInUser)
-            navigate(from, {replace: true});
+            // akhan theke redirect korbo na. token set hobar por redirect korbo.
+
+            // Verify with JWT Token
+            storeAuthToken();
             setIsLoading(false)
-            console.log(signInUser)
 
         }).catch((error) => {
             const errorCode = error.code;
@@ -44,6 +46,20 @@ function Login() {
             const credential = GoogleAuthProvider.credentialFromError(error);
             console.log(errorCode, errorMessage, email, credential);
         });
+    }
+
+    const storeAuthToken = () => {
+        firebase.auth().currentUser.getIdToken(/* forceRefresh */ true)
+        .then(function(idToken) {
+            // Send token to your backend via HTTPS
+            sessionStorage.setItem('token', idToken);
+            navigate(from, {replace: true});
+            // console.log(idToken);
+
+
+          }).catch(function(error) {
+            // Handle error
+          });
     }
 
     // Sign Out with Google
