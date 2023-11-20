@@ -1,6 +1,7 @@
 ## Description
 
 ### Client Side
+## --------------------------------------------
 
 #### react, react-dom - V-18.2.0
 #### react-script - V-5.0.1
@@ -10,7 +11,9 @@
 #### Mongo DB - V-6.3.0
 #### Material Ui - V-5.14.18
 
+
 ### Server Side
+## --------------------------------------------
 
 #### Node Js - V-18.18.0
 #### Firebase Admin - V11.11.0
